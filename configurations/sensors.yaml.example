@@ -37,7 +37,7 @@
       unit_of_measurement: "lights"
       value_template: >
         {{ states.light | selectattr('state', 'eq', 'on') | list | count }}
-    
+
     # Average indoor temperature
     average_indoor_temperature:
       friendly_name: "Average Indoor Temperature"
@@ -49,7 +49,7 @@
           states('sensor.kitchen_temperature')|float(0)
         ] %}
         {{ (temps | sum / temps | length) | round(1) }}
-    
+
     # Time until sunset
     time_until_sunset:
       friendly_name: "Time Until Sunset"
@@ -62,7 +62,7 @@
         {% else %}
           Sun has set
         {% endif %}
-    
+
     # Current season
     season:
       friendly_name: "Season"
@@ -96,7 +96,7 @@
 #       friendly_name: "Outside Temperature"
 #       unit_of_measurement: "°C"
 #       value_template: "{{ state_attr('weather.home', 'temperature') }}"
-#     
+#
 #     weather_humidity:
 #       friendly_name: "Outside Humidity"
 #       unit_of_measurement: "%"
@@ -108,7 +108,7 @@
 #   state_topic: "home/living_room/temperature"
 #   unit_of_measurement: "°C"
 #   device_class: temperature
-# 
+#
 # - platform: mqtt
 #   name: "Front Door"
 #   state_topic: "home/front_door/contact"

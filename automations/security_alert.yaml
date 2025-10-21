@@ -6,7 +6,7 @@
 - id: 'security_alert'
   alias: 'Security Alert'
   description: 'Notify when doors or windows opened unexpectedly'
-  
+
   trigger:
     - platform: state
       entity_id:
@@ -14,7 +14,7 @@
         - binary_sensor.back_door
         - binary_sensor.garage_door
       to: 'on'
-  
+
   condition:
     - condition: or
       conditions:
@@ -22,7 +22,7 @@
         - condition: state
           entity_id: input_boolean.away_mode
           state: 'on'
-        
+
         # Alert at night (11 PM - 6 AM)
         - condition: and
           conditions:
@@ -32,7 +32,7 @@
             - condition: state
               entity_id: alarm_control_panel.home_alarm
               state: 'armed_night'
-  
+
   action:
     - service: notify.mobile_app
       data:
@@ -43,14 +43,14 @@
           priority: high
           ttl: 0
           channel: security
-    
+
     # Turn on all lights as deterrent
     - service: light.turn_on
       target:
         entity_id: all
       data:
         brightness_pct: 100
-    
+
     # Optional: Sound alarm or siren
     # - service: switch.turn_on
     #   target:

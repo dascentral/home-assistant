@@ -17,7 +17,7 @@ homeassistant:
   # External and internal URLs for accessing Home Assistant
   external_url: !secret external_url
   internal_url: !secret internal_url
-  
+
   # Customization file
   customize: !include customize.yaml
 
@@ -85,11 +85,11 @@ input_boolean:
   vacation_mode:
     name: Vacation Mode
     icon: mdi:airplane
-  
+
   guest_mode:
     name: Guest Mode
     icon: mdi:account-multiple
-  
+
   away_mode:
     name: Away Mode
     icon: mdi:home-export-outline
@@ -132,7 +132,7 @@ zone:
     longitude: !secret longitude
     radius: 100
     icon: mdi:home
-  
+
   - name: Work
     latitude: !secret work_latitude
     longitude: !secret work_longitude

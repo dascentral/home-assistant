@@ -6,23 +6,23 @@
 - id: 'smart_climate_control'
   alias: 'Smart Climate Control'
   description: 'Adjust temperature based on schedule and presence'
-  
+
   trigger:
     # Morning temperature adjustment
     - platform: time
       at: '07:00:00'
       id: morning
-    
+
     # Evening temperature adjustment
     - platform: time
       at: '18:00:00'
       id: evening
-    
+
     # Night temperature adjustment
     - platform: time
       at: '22:00:00'
       id: night
-    
+
     # Away mode when nobody home
     - platform: state
       entity_id: binary_sensor.occupancy
@@ -30,7 +30,7 @@
       for:
         minutes: 30
       id: away
-  
+
   action:
     - choose:
         # Morning: Comfortable temperature
@@ -44,7 +44,7 @@
               data:
                 temperature: 21
                 hvac_mode: heat
-        
+
         # Evening: Comfortable temperature
         - conditions:
             - condition: trigger
@@ -55,7 +55,7 @@
                 entity_id: climate.thermostat
               data:
                 temperature: 22
-        
+
         # Night: Lower temperature for sleep
         - conditions:
             - condition: trigger
@@ -66,7 +66,7 @@
                 entity_id: climate.thermostat
               data:
                 temperature: 19
-        
+
         # Away: Energy saving mode
         - conditions:
             - condition: trigger
@@ -77,7 +77,7 @@
                 entity_id: climate.thermostat
               data:
                 temperature: 18
-            
+
             - service: notify.notify
               data:
                 title: "Away Mode Active"
