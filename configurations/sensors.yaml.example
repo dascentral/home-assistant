@@ -1,0 +1,126 @@
+# Sensor Configuration Examples
+# Place this file in your Home Assistant config directory
+# Reference it from configuration.yaml with: sensor: !include sensors.yaml
+
+# Time and Date sensors
+- platform: time_date
+  display_options:
+    - 'time'
+    - 'date'
+    - 'date_time'
+    - 'date_time_iso'
+    - 'time_date'
+    - 'time_utc'
+
+# System Monitor - Monitor your Home Assistant host
+- platform: systemmonitor
+  resources:
+    - type: disk_use_percent
+      arg: /
+    - type: disk_use
+      arg: /
+    - type: disk_free
+      arg: /
+    - type: memory_use_percent
+    - type: memory_use
+    - type: memory_free
+    - type: processor_use
+    - type: processor_temperature
+    - type: last_boot
+
+# Template sensors - Create custom sensors
+- platform: template
+  sensors:
+    # Count of lights that are on
+    lights_on_count:
+      friendly_name: "Lights On"
+      unit_of_measurement: "lights"
+      value_template: >
+        {{ states.light | selectattr('state', 'eq', 'on') | list | count }}
+    
+    # Average indoor temperature
+    average_indoor_temperature:
+      friendly_name: "Average Indoor Temperature"
+      unit_of_measurement: "°C"
+      value_template: >
+        {% set temps = [
+          states('sensor.living_room_temperature')|float(0),
+          states('sensor.bedroom_temperature')|float(0),
+          states('sensor.kitchen_temperature')|float(0)
+        ] %}
+        {{ (temps | sum / temps | length) | round(1) }}
+    
+    # Time until sunset
+    time_until_sunset:
+      friendly_name: "Time Until Sunset"
+      value_template: >
+        {% set sunset = as_timestamp(state_attr('sun.sun', 'next_setting')) %}
+        {% set now = as_timestamp(now()) %}
+        {% set diff = sunset - now %}
+        {% if diff > 0 %}
+          {{ (diff / 3600) | round(1) }} hours
+        {% else %}
+          Sun has set
+        {% endif %}
+    
+    # Current season
+    season:
+      friendly_name: "Season"
+      value_template: >
+        {% set month = now().month %}
+        {% if month >= 3 and month <= 5 %}
+          Spring
+        {% elif month >= 6 and month <= 8 %}
+          Summer
+        {% elif month >= 9 and month <= 11 %}
+          Fall
+        {% else %}
+          Winter
+        {% endif %}
+      icon_template: >
+        {% set month = now().month %}
+        {% if month >= 3 and month <= 5 %}
+          mdi:flower
+        {% elif month >= 6 and month <= 8 %}
+          mdi:white-balance-sunny
+        {% elif month >= 9 and month <= 11 %}
+          mdi:leaf
+        {% else %}
+          mdi:snowflake
+        {% endif %}
+
+# Weather sensors (if using a weather integration)
+# - platform: template
+#   sensors:
+#     weather_temperature:
+#       friendly_name: "Outside Temperature"
+#       unit_of_measurement: "°C"
+#       value_template: "{{ state_attr('weather.home', 'temperature') }}"
+#     
+#     weather_humidity:
+#       friendly_name: "Outside Humidity"
+#       unit_of_measurement: "%"
+#       value_template: "{{ state_attr('weather.home', 'humidity') }}"
+
+# MQTT sensors (if using MQTT)
+# - platform: mqtt
+#   name: "Living Room Temperature"
+#   state_topic: "home/living_room/temperature"
+#   unit_of_measurement: "°C"
+#   device_class: temperature
+# 
+# - platform: mqtt
+#   name: "Front Door"
+#   state_topic: "home/front_door/contact"
+#   payload_on: "open"
+#   payload_off: "closed"
+#   device_class: door
+
+# Statistics sensors
+- platform: statistics
+  name: "Daily Temperature Stats"
+  entity_id: sensor.outdoor_temperature
+  state_characteristic: mean
+  sampling_size: 100
+  max_age:
+    hours: 24

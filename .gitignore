@@ -1,0 +1,47 @@
+# Home Assistant specific
+secrets.yaml
+known_devices.yaml
+*.db
+*.db-shm
+*.db-wal
+*.log
+.HA_VERSION
+.uuid
+.cloud
+.storage/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Backup files
+*.backup
+*.bak
+*~
+
+# Configuration backups
+home-assistant_v2.db
+home-assistant.log.*
+
+# Temporary files
+tmp/
+temp/
+*.tmp

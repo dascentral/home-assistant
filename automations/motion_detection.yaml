@@ -1,0 +1,43 @@
+---
+# Automation: Motion-activated lighting
+# Turns on lights when motion is detected and off after no motion
+# Update sensor and light entity IDs for your setup
+
+- id: 'motion_activated_lights'
+  alias: 'Motion Activated Lights'
+  description: 'Turn on lights when motion detected, off after 5 minutes'
+  
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.hallway_motion
+      to: 'on'
+  
+  condition:
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'  # Only at night
+    - condition: state
+      entity_id: light.hallway
+      state: 'off'
+  
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.hallway
+      data:
+        brightness_pct: 100
+    
+    - wait_for_trigger:
+        - platform: state
+          entity_id: binary_sensor.hallway_motion
+          to: 'off'
+          for:
+            minutes: 5
+      timeout:
+        minutes: 30
+    
+    - service: light.turn_off
+      target:
+        entity_id: light.hallway
+      data:
+        transition: 3
