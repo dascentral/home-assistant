@@ -1,0 +1,119 @@
+---
+# Automation Template
+# Copy this template and customize for your automation needs
+# Remove comments and TODO items before using in production
+
+# TODO: Generate a unique ID (e.g., timestamp or UUID)
+- id: 'unique_automation_id_here'
+
+  # TODO: Provide a descriptive alias that explains what this automation does
+  alias: 'TODO: Descriptive Name Here'
+
+  # TODO: Add a detailed description
+  description: |
+    TODO: Explain what this automation does, when it runs,
+    and any important conditions or behaviors.
+
+    Created: YYYY-MM-DD
+    Last Modified: YYYY-MM-DD
+
+  # TODO: Define when this automation should trigger
+  trigger:
+    # Time-based trigger example
+    - platform: time
+      at: '07:00:00'
+      id: morning_trigger
+
+    # State change trigger example
+    # - platform: state
+    #   entity_id: sensor.example_sensor
+    #   to: 'on'
+    #   for:
+    #     minutes: 5
+    #   id: state_trigger
+
+    # Sun trigger example
+    # - platform: sun
+    #   event: sunset
+    #   offset: '-00:30:00'
+    #   id: sunset_trigger
+
+    # Numeric state trigger example
+    # - platform: numeric_state
+    #   entity_id: sensor.temperature
+    #   above: 25
+    #   id: temp_trigger
+
+  # TODO: Define conditions that must be true for actions to run
+  # Remove this section if no conditions are needed
+  condition:
+    # State condition example
+    - condition: state
+      entity_id: input_boolean.automation_enabled
+      state: 'on'
+
+    # Time condition example
+    # - condition: time
+    #   after: '08:00:00'
+    #   before: '22:00:00'
+    #   weekday:
+    #     - mon
+    #     - tue
+    #     - wed
+    #     - thu
+    #     - fri
+
+    # Numeric condition example
+    # - condition: numeric_state
+    #   entity_id: sensor.temperature
+    #   below: 20
+
+    # Template condition example
+    # - condition: template
+    #   value_template: "{{ is_state('sun.sun', 'below_horizon') }}"
+
+  # TODO: Define what actions to perform
+  action:
+    # Service call example
+    - service: light.turn_on
+      target:
+        entity_id: light.example_light
+      data:
+        brightness_pct: 100
+        transition: 2
+
+    # Notification example
+    # - service: notify.notify
+    #   data:
+    #     title: "Automation Triggered"
+    #     message: "TODO: Your message here"
+
+    # Wait example
+    # - delay:
+    #     seconds: 30
+
+    # Choose (if/then/else) example
+    # - choose:
+    #     - conditions:
+    #         - condition: state
+    #           entity_id: input_select.mode
+    #           state: 'Mode1'
+    #       sequence:
+    #         - service: light.turn_on
+    #           entity_id: light.light1
+    #     - conditions:
+    #         - condition: state
+    #           entity_id: input_select.mode
+    #           state: 'Mode2'
+    #       sequence:
+    #         - service: light.turn_off
+    #           entity_id: light.light1
+    #   default:
+    #     - service: notify.notify
+    #       data:
+    #         message: "No matching condition"
+
+  # Optional: Control automation behavior with multiple triggers
+  # mode: single  # Options: single, restart, queued, parallel
+  # max: 10  # Maximum number of runs (for queued/parallel mode)
+  # max_exceeded: silent  # What to do when max exceeded: silent, warning, error

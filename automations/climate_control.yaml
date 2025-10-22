@@ -1,0 +1,84 @@
+---
+# Automation: Smart Climate Control
+# Adjusts thermostat based on time of day and occupancy
+# Update climate entity and sensor IDs for your setup
+
+- id: 'smart_climate_control'
+  alias: 'Smart Climate Control'
+  description: 'Adjust temperature based on schedule and presence'
+
+  trigger:
+    # Morning temperature adjustment
+    - platform: time
+      at: '07:00:00'
+      id: morning
+
+    # Evening temperature adjustment
+    - platform: time
+      at: '18:00:00'
+      id: evening
+
+    # Night temperature adjustment
+    - platform: time
+      at: '22:00:00'
+      id: night
+
+    # Away mode when nobody home
+    - platform: state
+      entity_id: binary_sensor.occupancy
+      to: 'off'
+      for:
+        minutes: 30
+      id: away
+
+  action:
+    - choose:
+        # Morning: Comfortable temperature
+        - conditions:
+            - condition: trigger
+              id: morning
+          sequence:
+            - service: climate.set_temperature
+              target:
+                entity_id: climate.thermostat
+              data:
+                temperature: 21
+                hvac_mode: heat
+
+        # Evening: Comfortable temperature
+        - conditions:
+            - condition: trigger
+              id: evening
+          sequence:
+            - service: climate.set_temperature
+              target:
+                entity_id: climate.thermostat
+              data:
+                temperature: 22
+
+        # Night: Lower temperature for sleep
+        - conditions:
+            - condition: trigger
+              id: night
+          sequence:
+            - service: climate.set_temperature
+              target:
+                entity_id: climate.thermostat
+              data:
+                temperature: 19
+
+        # Away: Energy saving mode
+        - conditions:
+            - condition: trigger
+              id: away
+          sequence:
+            - service: climate.set_temperature
+              target:
+                entity_id: climate.thermostat
+              data:
+                temperature: 18
+
+            - service: notify.notify
+              data:
+                title: 'Away Mode Active'
+                message: 'Climate control set to energy saving mode'

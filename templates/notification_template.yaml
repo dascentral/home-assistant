@@ -1,0 +1,105 @@
+---
+# Notification Automation Template
+# Use this template for automations that send notifications
+
+- id: 'notification_automation_id'
+  alias: 'TODO: Notification Name'
+  description: 'TODO: Describe what this notification alerts about'
+
+  trigger:
+    # TODO: Define your trigger
+    - platform: state
+      entity_id: sensor.example_sensor
+      to: 'alert_state'
+
+  condition:
+    # Optional: Add conditions to prevent spam
+    # Prevent notification if recently sent
+    - condition: template
+      value_template: >
+        {% set last_triggered = state_attr('automation.this_automation', 'last_triggered') %}
+        {% if last_triggered %}
+          {{ (now() - last_triggered).total_seconds() > 3600 }}
+        {% else %}
+          true
+        {% endif %}
+
+  action:
+    # Standard notification
+    - service: notify.notify
+      data:
+        title: "TODO: Notification Title"
+        message: "TODO: Your message here"
+
+    # Mobile app notification with enhanced features
+    # - service: notify.mobile_app_<device_name>
+    #   data:
+    #     title: "TODO: Title"
+    #     message: "TODO: Message"
+    #     data:
+    #       # High priority notification
+    #       priority: high
+    #       ttl: 0
+    #
+    #       # Notification channel
+    #       channel: "alerts"
+    #
+    #       # Action buttons
+    #       actions:
+    #         - action: "ACTION_1"
+    #           title: "Button 1"
+    #         - action: "ACTION_2"
+    #           title: "Button 2"
+    #
+    #       # Image/camera
+    #       image: "/local/images/notification.jpg"
+    #
+    #       # Click action
+    #       clickAction: "/lovelace/cameras"
+    #
+    #       # Sound
+    #       sound: "default"
+    #
+    #       # LED color (Android)
+    #       color: "#FF0000"
+    #
+    #       # Vibration pattern (Android)
+    #       vibrationPattern: "100, 1000, 100"
+
+    # Persistent notification (in Home Assistant UI)
+    # - service: persistent_notification.create
+    #   data:
+    #     title: "TODO: Title"
+    #     message: "TODO: Message"
+    #     notification_id: "unique_notification_id"
+
+    # TTS notification
+    # - service: tts.google_translate_say
+    #   target:
+    #     entity_id: media_player.speaker
+    #   data:
+    #     message: "TODO: Message to speak"
+
+    # Multiple notification methods
+    # - parallel:
+    #     - service: notify.mobile_app
+    #       data:
+    #         title: "Alert"
+    #         message: "Message"
+    #     - service: tts.google_translate_say
+    #       target:
+    #         entity_id: media_player.speaker
+    #       data:
+    #         message: "Alert: Message"
+
+# Optional: Automation to handle notification actions
+# - id: 'notification_action_handler'
+#   alias: 'Handle Notification Actions'
+#   trigger:
+#     - platform: event
+#       event_type: mobile_app_notification_action
+#       event_data:
+#         action: 'ACTION_1'
+#   action:
+#     - service: light.turn_on
+#       entity_id: light.example

@@ -1,0 +1,155 @@
+# Home Assistant Configuration Example
+# This file contains common configuration patterns
+# Copy and customize for your installation
+
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 0
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick your time zone from: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/New_York
+  # External and internal URLs for accessing Home Assistant
+  external_url: !secret external_url
+  internal_url: !secret internal_url
+
+  # Customization file
+  customize: !include customize.yaml
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+# Example configuration.yaml entry for recorder
+recorder:
+  db_url: !secret db_url
+  purge_keep_days: 7
+  exclude:
+    domains:
+      - automation
+      - updater
+    entity_globs:
+      - sensor.weather_*
+    entities:
+      - sun.sun
+
+# History
+history:
+  exclude:
+    domains:
+      - automation
+      - updater
+
+# Logger
+logger:
+  default: info
+  logs:
+    homeassistant.core: warning
+    homeassistant.components.mqtt: warning
+
+# HTTP
+http:
+  # Uncomment this if you are using SSL/TLS
+  # ssl_certificate: /ssl/fullchain.pem
+  # ssl_key: /ssl/privkey.pem
+  cors_allowed_origins:
+    - https://google.com
+    - https://www.home-assistant.io
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 127.0.0.1
+    - ::1
+
+# Sensors
+sensor: !include sensors.yaml
+
+# Binary sensors
+binary_sensor:
+  - platform: template
+    sensors:
+      # Example: Is it night time?
+      night_time:
+        friendly_name: "Night Time"
+        value_template: "{{ is_state('sun.sun', 'below_horizon') }}"
+
+# Input helpers
+input_boolean:
+  vacation_mode:
+    name: Vacation Mode
+    icon: mdi:airplane
+
+  guest_mode:
+    name: Guest Mode
+    icon: mdi:account-multiple
+
+  away_mode:
+    name: Away Mode
+    icon: mdi:home-export-outline
+
+input_number:
+  target_temperature:
+    name: Target Temperature
+    initial: 21
+    min: 15
+    max: 30
+    step: 0.5
+    unit_of_measurement: "°C"
+
+input_select:
+  house_mode:
+    name: House Mode
+    options:
+      - Home
+      - Away
+      - Sleep
+      - Party
+    icon: mdi:home-account
+
+# Automations
+automation: !include automations.yaml
+
+# Scripts
+script: !include scripts.yaml
+
+# Scenes
+scene: !include scenes.yaml
+
+# Groups
+group: !include groups.yaml
+
+# Zones
+zone:
+  - name: Home
+    latitude: !secret latitude
+    longitude: !secret longitude
+    radius: 100
+    icon: mdi:home
+
+  - name: Work
+    latitude: !secret work_latitude
+    longitude: !secret work_longitude
+    radius: 200
+    icon: mdi:office-building
+
+# Device tracking
+device_tracker:
+
+# Person
+person:
+
+# Mobile app
+mobile_app:
+
+# Cloud (Nabu Casa)
+cloud:
+
+# Energy monitoring
+energy:
