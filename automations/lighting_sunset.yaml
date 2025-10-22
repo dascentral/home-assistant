@@ -3,19 +3,19 @@
 # This automation turns on specified lights when the sun sets
 # Customize the entity_id list to match your lights
 
-- id: "lights_on_at_sunset"
-  alias: "Lights On at Sunset"
-  description: "Turn on living room lights when sun sets"
+- id: 'lights_on_at_sunset'
+  alias: 'Lights On at Sunset'
+  description: 'Turn on living room lights when sun sets'
 
   trigger:
     - platform: sun
       event: sunset
-      offset: "-00:30:00" # 30 minutes before sunset
+      offset: '-00:30:00' # 30 minutes before sunset
 
   condition:
     - condition: state
       entity_id: input_boolean.vacation_mode
-      state: "off"
+      state: 'off'
 
   action:
     - service: light.turn_on
@@ -30,5 +30,5 @@
 
     - service: notify.notify
       data:
-        title: "Evening Lights"
-        message: "Evening lights have been turned on automatically"
+        title: 'Evening Lights'
+        message: 'Evening lights have been turned on automatically'
