@@ -9,7 +9,5 @@
   "singleQuote": true,
   "singleAttributePerLine": false,
   "tabWidth": 2,
-  "tailwindFunctions": ["clsx", "cn"],
-  "tailwindStylesheet": "resources/css/app.css",
   "trailingComma": "all"
 }
