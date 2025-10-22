@@ -1,0 +1,37 @@
+sonos_play_pause:
+  alias: "Sonos Play/Pause Toggle"
+  description: "Toggles play/pause state of the specified Sonos speaker."
+  fields:
+    speaker:
+      description: "Target Sonos speaker"
+      default: "media_player.office"
+      selector:
+        entity:
+          domain: media_player
+          integration: sonos
+          multiple: false
+  sequence:
+    - choose:
+        - conditions:
+            - condition: template
+              value_template: "{{ is_state(speaker, 'playing') }}"
+          sequence:
+            - service: media_player.media_pause
+              target:
+                entity_id: "{{ speaker }}"
+            - service: logbook.log
+              data:
+                name: Sonos
+                message: "Paused {{ speaker }}"
+                entity_id: "{{ speaker }}"
+      default:
+        - service: media_player.media_play
+          target:
+            entity_id: "{{ speaker }}"
+        - service: logbook.log
+          data:
+            name: Sonos
+            message: "Playing {{ speaker }}"
+            entity_id: "{{ speaker }}"
+  mode: restart
+  icon: mdi:play-pause

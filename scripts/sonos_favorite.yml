@@ -1,0 +1,66 @@
+play_sonos_favorite:
+  alias: "Play Sonos Favorite"
+  description: "Plays a Sonos favorite on the specified Sonos speaker with optional volume."
+  fields:
+    favorite_id:
+      name: "Favorite ID"
+      description: "The Sonos Favorite ID (e.g., FV:2/35)"
+      example: "FV:2/35"
+      required: true
+      selector:
+        text:
+    favorite_name:
+      name: "Favorite Name"
+      description: "The name of the Sonos Favorite (for logging purposes)"
+      example: "RJD2 Radio"
+      default: ""
+      selector:
+        text:
+    speaker:
+      name: "Speaker"
+      description: "Target Sonos speaker"
+      example: "media_player.office"
+      default: "media_player.office"
+      required: true
+      selector:
+        entity:
+          domain: media_player
+          integration: sonos
+          multiple: false
+    volume:
+      name: "Volume"
+      description: "Volume level (0-100)"
+      default: 20
+      selector:
+        number:
+          min: 0
+          max: 100
+          mode: slider
+          step: 1
+  variables:
+    normalized_volume: "{{ (volume | float(0)) / 100 }}"
+    display_name: "{{ favorite_name if favorite_name else favorite_id }}"
+  sequence:
+    - service: media_player.volume_set
+      target:
+        entity_id: "{{ speaker }}"
+      data:
+        volume_level: "{{ normalized_volume }}"
+    - service: media_player.shuffle_set
+      target:
+        entity_id: "{{ speaker }}"
+      data:
+        shuffle: true
+    - service: media_player.play_media
+      target:
+        entity_id: "{{ speaker }}"
+      data:
+        media_content_type: favorite_item_id
+        media_content_id: "{{ favorite_id }}"
+    - service: logbook.log
+      data:
+        name: Sonos
+        message: "Playing '{{ display_name }}' (shuffled) on {{ speaker }} at {{ (normalized_volume * 100) | round(0) }}% volume"
+        entity_id: "{{ speaker }}"
+  mode: restart
+  icon: mdi:speaker-play

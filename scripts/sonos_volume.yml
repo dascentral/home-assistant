@@ -1,0 +1,34 @@
+sonos_volume:
+  alias: "Set Sonos Volume"
+  description: "Sets the volume of the specified Sonos speaker."
+  fields:
+    speaker:
+      description: "Target Sonos speaker"
+      default: "media_player.office"
+      selector:
+        entity:
+          domain: media_player
+          integration: sonos
+          multiple: false
+    volume:
+      description: "Volume level (0-100)"
+      default: 20
+      selector:
+        number:
+          min: 0
+          max: 100
+          mode: slider
+  variables:
+    normalized_volume: "{{ (volume | float(0)) / 100 }}"
+  sequence:
+    - service: media_player.volume_set
+      data:
+        entity_id: "{{ speaker }}"
+        volume_level: "{{ normalized_volume }}"
+    - service: logbook.log
+      data:
+        name: Sonos
+        message: "Set volume of {{ speaker }} to {{ (normalized_volume * 100) | round(0) }}%"
+        entity_id: "{{ speaker }}"
+  mode: restart
+  icon: mdi:volume-equal
