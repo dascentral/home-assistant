@@ -5,6 +5,7 @@ This directory contains Home Assistant automation YAML files organized by catego
 ## Structure
 
 Automations are organized by function:
+
 - `lighting/` - Light control automations
 - `climate/` - Temperature and climate control
 - `security/` - Security and monitoring
@@ -21,6 +22,7 @@ Automations are organized by function:
 ## Testing
 
 Always test new automations in a safe manner:
+
 - Use the "Run" button in the Home Assistant UI to test manually
 - Monitor the automation trace to see execution flow
 - Start with notification-only actions before controlling devices
