@@ -22,6 +22,7 @@ This directory contains example Home Assistant configuration files to help you s
 ## Important Notes
 
 ### Secrets
+
 Never commit sensitive information like passwords or API keys. Use `secrets.yaml`:
 
 ```yaml
@@ -33,6 +34,7 @@ my_api_key: your_actual_api_key_here
 ```
 
 ### Splitting Configuration
+
 For better organization, you can split configuration into multiple files:
 
 ```yaml
@@ -43,13 +45,16 @@ sensor: !include sensors.yaml
 ```
 
 ### Validation
+
 Always validate your configuration before restarting:
+
 - Use Developer Tools → Check Configuration in the UI
 - Or run `scripts/check_config.sh`
 
 ## Common Integrations
 
 ### MQTT
+
 ```yaml
 mqtt:
   broker: 192.168.1.100
@@ -58,15 +63,16 @@ mqtt:
 ```
 
 ### Zigbee (Zigbee2MQTT or ZHA)
+
 ```yaml
 # For ZHA
 zha:
   database_path: /config/zigbee.db
-  
 # For Zigbee2MQTT, use MQTT integration
 ```
 
 ### Weather
+
 ```yaml
 weather:
   - platform: met
