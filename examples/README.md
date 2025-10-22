@@ -5,12 +5,15 @@ This directory contains complete, working examples of common Home Assistant setu
 ## Available Examples
 
 ### Complete Automation Examples
+
 Real-world automation scenarios with full implementation details.
 
 ### Integration Examples
+
 Step-by-step guides for integrating various devices and services.
 
 ### Dashboard Examples
+
 Lovelace UI dashboard configurations and card examples.
 
 ## How to Use Examples
@@ -24,36 +27,42 @@ Lovelace UI dashboard configurations and card examples.
 ## Example Categories
 
 ### Lighting Scenarios
+
 - Motion-activated lights
 - Circadian lighting (color temperature adjustment)
 - Party mode lighting
 - Vacation mode simulation
 
 ### Climate Control
+
 - Smart thermostat schedules
 - Temperature-based automation
 - Humidity control
 - Energy-saving modes
 
 ### Security and Monitoring
+
 - Door/window monitoring
 - Camera notifications
 - Alarm system integration
 - Presence detection
 
 ### Energy Management
+
 - Smart plug scheduling
 - Power usage monitoring
 - Solar panel optimization
 - Cost tracking
 
 ### Entertainment
+
 - Media center automation
 - Multi-room audio
 - Movie mode scenes
 - Gaming setup automation
 
 ### Convenience
+
 - Morning routines
 - Departure routines
 - Arrival routines
@@ -98,7 +107,7 @@ example_name/
 ### Pattern: Time-Based Automation
 Trigger actions at specific times or relative to sunrise/sunset.
 
-### Pattern: State-Change Automation  
+### Pattern: State-Change Automation
 React when sensors or devices change state.
 
 ### Pattern: Condition-Based Logic
