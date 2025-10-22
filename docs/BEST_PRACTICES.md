@@ -5,7 +5,9 @@ A collection of best practices for managing your Home Assistant installation eff
 ## Configuration Management
 
 ### 1. Use Version Control
+
 Track your configuration with Git:
+
 ```bash
 cd /config
 git init
@@ -17,7 +19,9 @@ git commit -m "Initial configuration"
 ```
 
 ### 2. Split Configuration Files
+
 Instead of one large `configuration.yaml`:
+
 ```yaml
 # configuration.yaml
 automation: !include automations.yaml
@@ -27,13 +31,16 @@ group: !include groups.yaml
 ```
 
 Or use directories:
+
 ```yaml
 automation: !include_dir_list automations/
 script: !include_dir_named scripts/
 ```
 
 ### 3. Use Secrets
+
 Never hardcode sensitive data:
+
 ```yaml
 # configuration.yaml
 api_key: !secret openweather_api_key
@@ -43,7 +50,9 @@ openweather_api_key: abc123xyz789
 ```
 
 ### 4. Comment Your Code
+
 Future you will thank present you:
+
 ```yaml
 # Turn on porch light at sunset for security
 # Only triggers when home mode is active
@@ -57,7 +66,9 @@ automation:
 ## Naming Conventions
 
 ### Entity IDs
+
 Use clear, consistent naming:
+
 ```yaml
 # Good
 light.living_room_ceiling
@@ -71,7 +82,9 @@ switch.switch_a
 ```
 
 ### Automation Names
+
 Be descriptive:
+
 ```yaml
 # Good
 alias: "Turn on porch light at sunset"
@@ -85,14 +98,16 @@ alias: "test"
 ## Automation Design
 
 ### 1. Use Conditions Wisely
+
 Prevent unwanted triggers:
+
 ```yaml
 automation:
   - alias: "Motion lights only at night"
     trigger:
       - platform: state
         entity_id: binary_sensor.motion
-        to: 'on'
+        to: "on"
     condition:
       # Only run at night
       - condition: sun
@@ -101,28 +116,30 @@ automation:
       # Only when not in vacation mode
       - condition: state
         entity_id: input_boolean.vacation_mode
-        state: 'off'
+        state: "off"
     action:
       - service: light.turn_on
         entity_id: light.hallway
 ```
 
 ### 2. Implement Safety Checks
+
 Add fail-safes to prevent issues:
+
 ```yaml
 automation:
   - alias: "Close garage door if left open"
     trigger:
       - platform: state
         entity_id: cover.garage_door
-        to: 'open'
+        to: "open"
         for:
           minutes: 30
     condition:
       # Only auto-close during reasonable hours
       - condition: time
-        after: '06:00:00'
-        before: '23:00:00'
+        after: "06:00:00"
+        before: "23:00:00"
     action:
       # Notify before closing
       - service: notify.mobile_app
@@ -136,17 +153,20 @@ automation:
 ```
 
 ### 3. Use Mode for Automation Behavior
+
 Control how automations handle multiple triggers:
+
 ```yaml
 automation:
   - alias: "Motion Light"
-    mode: restart  # Options: single, restart, queued, parallel
+    mode: restart # Options: single, restart, queued, parallel
     trigger:
       - platform: state
         entity_id: binary_sensor.motion
 ```
 
 Modes explained:
+
 - `single`: Don't run if already running (default)
 - `restart`: Stop current run, start new one
 - `queued`: Queue additional runs
@@ -155,7 +175,9 @@ Modes explained:
 ## Performance Optimization
 
 ### 1. Limit Database Size
+
 Exclude unnecessary entities from history:
+
 ```yaml
 recorder:
   purge_keep_days: 7
@@ -170,7 +192,9 @@ recorder:
 ```
 
 ### 2. Use Template Sensors Efficiently
+
 Avoid excessive updates:
+
 ```yaml
 sensor:
   - platform: template
@@ -182,30 +206,36 @@ sensor:
 ```
 
 ### 3. Disable Unused Integrations
+
 Remove or disable integrations you don't use to reduce load.
 
 ## Security Practices
 
 ### 1. Use Strong Authentication
+
 - Enable MFA for all users
 - Use strong passwords
 - Create separate users for different people
 - Use guest accounts for temporary access
 
 ### 2. Secure External Access
+
 If exposing to internet:
+
 - Use Nabu Casa Cloud (recommended)
 - Or use a VPN (WireGuard, Tailscale)
 - If port forwarding: use SSL/TLS with valid certificates
 - Enable fail2ban or similar
 
 ### 3. Regular Updates
+
 - Keep Home Assistant updated
 - Update all integrations
 - Update the underlying OS
 - Monitor security advisories
 
 ### 4. Limit Access
+
 ```yaml
 http:
   use_x_forwarded_for: true
@@ -219,19 +249,24 @@ http:
 ## Backup Strategy
 
 ### 1. Multiple Backup Types
+
 - **Full backups**: Weekly (entire system)
 - **Config backups**: Daily (configuration files only)
 - **Off-site backups**: Monthly (cloud storage)
 
 ### 2. Automated Backups
+
 Use the backup script from this repository:
+
 ```bash
 # Add to cron for daily backups
 0 2 * * * /path/to/scripts/backup_config.sh
 ```
 
 ### 3. Test Your Backups
+
 Regularly verify backups can be restored:
+
 - Test on a separate instance
 - Document restore procedure
 - Keep restore process simple
@@ -239,6 +274,7 @@ Regularly verify backups can be restored:
 ## Testing and Validation
 
 ### 1. Always Validate Before Restart
+
 ```bash
 # Use the check script
 ./scripts/check_config.sh
@@ -248,21 +284,25 @@ Developer Tools → Check Configuration
 ```
 
 ### 2. Use Automation Traces
+
 After creating an automation:
+
 1. Go to Settings → Automations
 2. Click your automation
 3. Trigger it manually
 4. View the trace to verify logic
 
 ### 3. Start with Notifications
+
 Test automation logic with notifications first:
+
 ```yaml
 action:
   # Test with notification first
   - service: notify.notify
     data:
       message: "Would have turned on light here"
-  
+
   # Add actual control after testing
   # - service: light.turn_on
   #   entity_id: light.living_room
@@ -271,7 +311,9 @@ action:
 ## Resource Management
 
 ### 1. Monitor System Resources
+
 Add system monitoring:
+
 ```yaml
 sensor:
   - platform: systemmonitor
@@ -282,7 +324,9 @@ sensor:
 ```
 
 ### 2. Review Logs Regularly
+
 Check for errors and warnings:
+
 ```bash
 # View logs
 tail -f /config/home-assistant.log
@@ -291,7 +335,9 @@ tail -f /config/home-assistant.log
 ```
 
 ### 3. Clean Up Unused Entities
+
 Periodically review and remove:
+
 - Disabled automations
 - Unused scripts
 - Old sensors
@@ -300,13 +346,16 @@ Periodically review and remove:
 ## Documentation
 
 ### 1. Document Your Setup
+
 Create a personal wiki or README:
+
 - List all devices and their locations
 - Document custom automations
 - Note integration configurations
 - Keep troubleshooting notes
 
 ### 2. Comment Complex Logic
+
 ```yaml
 automation:
   - alias: "Complex automation"
@@ -321,21 +370,25 @@ automation:
 ## Maintenance Schedule
 
 ### Daily
+
 - Check for critical errors in logs
 - Verify automations are working
 
-### Weekly  
+### Weekly
+
 - Review system performance
 - Check for available updates
 - Backup configuration
 
 ### Monthly
+
 - Full system backup
 - Review and clean up entities
 - Update documentation
 - Test backup restoration
 
 ### Quarterly
+
 - Security audit
 - Performance optimization review
 - Update all documentation
@@ -344,7 +397,9 @@ automation:
 ## Common Pitfalls to Avoid
 
 ### 1. Don't Use Delay for Everything
+
 Instead of:
+
 ```yaml
 # Bad: Using delay
 action:
@@ -357,6 +412,7 @@ action:
 ```
 
 Use:
+
 ```yaml
 # Good: Using wait_for_trigger
 action:
@@ -365,7 +421,7 @@ action:
   - wait_for_trigger:
       - platform: state
         entity_id: binary_sensor.motion
-        to: 'off'
+        to: "off"
         for:
           minutes: 5
     timeout:
@@ -375,12 +431,15 @@ action:
 ```
 
 ### 2. Don't Ignore Error Messages
+
 - Read and understand log errors
 - Fix warnings before they become problems
 - Check deprecated feature notices
 
 ### 3. Don't Over-Automate
+
 Start simple, add complexity gradually:
+
 - One automation at a time
 - Test thoroughly before moving on
 - Ensure spouse/family approval 😊
