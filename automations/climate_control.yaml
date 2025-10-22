@@ -3,30 +3,30 @@
 # Adjusts thermostat based on time of day and occupancy
 # Update climate entity and sensor IDs for your setup
 
-- id: 'smart_climate_control'
-  alias: 'Smart Climate Control'
-  description: 'Adjust temperature based on schedule and presence'
+- id: "smart_climate_control"
+  alias: "Smart Climate Control"
+  description: "Adjust temperature based on schedule and presence"
 
   trigger:
     # Morning temperature adjustment
     - platform: time
-      at: '07:00:00'
+      at: "07:00:00"
       id: morning
 
     # Evening temperature adjustment
     - platform: time
-      at: '18:00:00'
+      at: "18:00:00"
       id: evening
 
     # Night temperature adjustment
     - platform: time
-      at: '22:00:00'
+      at: "22:00:00"
       id: night
 
     # Away mode when nobody home
     - platform: state
       entity_id: binary_sensor.occupancy
-      to: 'off'
+      to: "off"
       for:
         minutes: 30
       id: away
