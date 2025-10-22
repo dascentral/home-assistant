@@ -1,0 +1,17 @@
+alias: Play Sonos Favorite
+description: ""
+triggers:
+  - webhook_id: play_sonos_favorite_3c45d9df52f76f69d
+    trigger: webhook
+    allowed_methods:
+      - POST
+      - PUT
+    local_only: true
+actions:
+  - data:
+      favorite_id: "{{ trigger.json.favorite_id }}"
+      favorite_name: "{{ trigger.json.favorite_name }}"
+      speaker: "{{ trigger.json.speaker | default('media_player.office') }}"
+      volume: "{{ trigger.json.volume | default(20) }}"
+    action: script.play_sonos_favorite
+mode: single
