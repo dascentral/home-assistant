@@ -1,7 +1,7 @@
 alias: Play Sonos Favorite
 description: ""
 triggers:
-  - webhook_id: play_sonos_favorite_3c45d9df52f76f69d
+  - webhook_id: !secret play_sonos_webhook_id
     trigger: webhook
     allowed_methods:
       - POST
