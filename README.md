@@ -107,7 +107,7 @@ Please ensure your contributions:
 - Test automations in a safe environment first
 - Use meaningful names for entities and automations
 - Document any custom requirements or dependencies
-- Keep sensitive information (tokens, passwords) in secrets.yaml
+- Keep sensitive information (tokens, passwords) in `secrets.yaml`
 
 ## ⚠️ Important Notes
 
