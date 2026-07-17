@@ -1,0 +1,40 @@
+id: morning_spigot_watering
+alias: 'Morning Spigot Watering'
+description: 'Run both spigots: side A for 30 min, then side B for 30 min'
+mode: single
+triggers:
+  - trigger: time
+    at: '05:00:00'
+conditions:
+  - condition: time
+    weekday:
+      - mon
+      - fri
+actions:
+  # Turn on both A sides
+  - action: switch.turn_on
+    target:
+      entity_id:
+        - switch.sonoff_backyard_spigot_a
+        - switch.sonoff_side_spigot_a
+  - delay:
+      minutes: 30
+  # Swap: A off, B on
+  - action: switch.turn_off
+    target:
+      entity_id:
+        - switch.sonoff_backyard_spigot_a
+        - switch.sonoff_side_spigot_a
+  - action: switch.turn_on
+    target:
+      entity_id:
+        - switch.sonoff_backyard_spigot_b
+        - switch.sonoff_side_spigot_b
+  - delay:
+      minutes: 30
+  # All off
+  - action: switch.turn_off
+    target:
+      entity_id:
+        - switch.sonoff_backyard_spigot_b
+        - switch.sonoff_side_spigot_b
