@@ -4,9 +4,7 @@ description: 'Run both spigots: side A for 30 min, then side B for 30 min'
 mode: single
 triggers:
   - trigger: time
-    at: '05:00:00'
-conditions:
-  - condition: time
+    at: '04:30:00'
     weekday:
       - mon
       - fri
