@@ -1,4 +1,4 @@
-sonos_play_pause:
+sonos_play_pause_toggle:
   alias: "Sonos Play/Pause Toggle"
   description: "Toggles play/pause state of the specified Sonos speaker."
   fields:
