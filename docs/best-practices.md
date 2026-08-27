@@ -33,8 +33,8 @@ group: !include groups.yaml
 Or use directories:
 
 ```yaml
-automation: !include_dir_list automations/
-script: !include_dir_named scripts/
+automation: !include_dir_merge_list automations/
+script: !include_dir_merge_named scripts/
 ```
 
 ### 3. Use Secrets
@@ -47,20 +47,6 @@ api_key: !secret openweather_api_key
 
 # secrets.yaml (not in version control)
 openweather_api_key: abc123xyz789
-```
-
-### 4. Comment Your Code
-
-Future you will thank present you:
-
-```yaml
-# Turn on porch light at sunset for security
-# Only triggers when home mode is active
-automation:
-  - alias: "Porch Light at Sunset"
-    trigger:
-      - platform: sun
-        event: sunset
 ```
 
 ## Naming Conventions
@@ -260,7 +246,7 @@ Use the backup script from this repository:
 
 ```bash
 # Add to cron for daily backups
-0 2 * * * /path/to/scripts/backup_config.sh
+0 2 * * * /path/to/bin/backup_config.sh
 ```
 
 ### 3. Test Your Backups
@@ -277,7 +263,7 @@ Regularly verify backups can be restored:
 
 ```bash
 # Use the check script
-./scripts/check_config.sh
+./bin/check_config.sh
 
 # Or in Home Assistant UI
 Developer Tools → Check Configuration
@@ -342,30 +328,6 @@ Periodically review and remove:
 - Unused scripts
 - Old sensors
 - Disconnected devices
-
-## Documentation
-
-### 1. Document Your Setup
-
-Create a personal wiki or README:
-
-- List all devices and their locations
-- Document custom automations
-- Note integration configurations
-- Keep troubleshooting notes
-
-### 2. Comment Complex Logic
-
-```yaml
-automation:
-  - alias: "Complex automation"
-    description: |
-      This automation does X when Y happens.
-      It was created because of Z requirement.
-      Last updated: 2024-01-15
-    trigger:
-      # ... rest of automation
-```
 
 ## Maintenance Schedule
 

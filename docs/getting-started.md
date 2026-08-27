@@ -39,16 +39,16 @@ ls -la
 ```
 
 You'll find:
-- `automations/` - Ready-to-use automation examples
-- `scripts/` - Utility scripts for management
-- `configurations/` - Configuration file templates
+- `config/` - HA source of truth (`config/automations/`, `config/scripts/`, `config/configuration.yaml`)
+- `bin/` - Utility scripts for backup, validation, and maintenance
+- `examples/` - Sample automations, config templates, and scaffolding templates
 - `docs/` - Documentation (you are here!)
 
 ### 3. Set Up Your First Automation
 
 Let's add a simple automation:
 
-1. Navigate to `automations/` directory
+1. Navigate to `examples/automations/` directory
 2. Open `lighting_sunset.yaml`
 3. Copy its content
 4. In Home Assistant, go to Settings → Automations & Scenes
@@ -63,13 +63,13 @@ Try the backup script:
 
 ```bash
 # Make it executable
-chmod +x scripts/backup_config.sh
+chmod +x bin/backup_config.sh
 
 # Set your config directory (adjust path as needed)
 export HA_CONFIG_DIR="/config"  # or your actual path
 
 # Run the backup
-./scripts/backup_config.sh
+./bin/backup_config.sh
 ```
 
 ## Understanding Home Assistant Paths
@@ -88,18 +88,16 @@ Your configuration location depends on your installation method:
 ### Task 1: Create Your First Backup
 
 ```bash
-cd scripts
 export HA_CONFIG_DIR="/config"  # Update this
-./backup_config.sh
+./bin/backup_config.sh
 ```
 
 ### Task 2: List All Your Entities
 
 ```bash
-cd scripts
 export HA_URL="http://homeassistant.local:8123"
 export HA_TOKEN="your_long_lived_token"
-python3 find_entities.py
+python3 bin/find_entities.py
 ```
 
 To get a token:
@@ -110,7 +108,7 @@ To get a token:
 
 ### Task 3: Add a Motion-Activated Light
 
-1. Open `automations/motion_detection.yaml`
+1. Open `examples/automations/motion_detection.yaml`
 2. Review the automation logic
 3. Update these entity IDs:
    - `binary_sensor.hallway_motion` → your motion sensor
@@ -120,7 +118,7 @@ To get a token:
 
 ### Task 4: Set Up Climate Control
 
-1. Review `automations/climate_control.yaml`
+1. Review `examples/automations/climate_control.yaml`
 2. Update entity IDs for your thermostat
 3. Adjust temperature values for your preference
 4. Consider your schedule (work, sleep times)
@@ -130,13 +128,13 @@ To get a token:
 
 ### 1. Always Backup Before Changes
 ```bash
-./scripts/backup_config.sh
+./bin/backup_config.sh
 ```
 
 ### 2. Validate Configuration
 Before restarting Home Assistant, check your config:
 ```bash
-./scripts/check_config.sh
+./bin/check_config.sh
 ```
 
 Or in the UI: Developer Tools → Check Configuration
@@ -170,7 +168,7 @@ my_api_key: abc123xyz
 ### Issue: Scripts won't run
 **Solution**: Make them executable
 ```bash
-chmod +x scripts/*.sh
+chmod +x bin/*.sh
 ```
 
 ### Issue: Can't find entities
@@ -178,7 +176,7 @@ chmod +x scripts/*.sh
 ```bash
 export HA_URL="http://your-ha-url:8123"
 export HA_TOKEN="your-token"
-python3 scripts/find_entities.py
+python3 bin/find_entities.py
 ```
 
 ### Issue: Automation not triggering
