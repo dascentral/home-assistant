@@ -5,7 +5,7 @@ sams_bedtime_routine:
     # Living Room
     - service: scene.turn_on
       target:
-        entity_id: scene.living_room_living_room_cozy
+        entity_id: scene.living_room_cozy
     - service: light.turn_off
       target:
         entity_id:
@@ -22,12 +22,12 @@ sams_bedtime_routine:
     # Office
     - service: scene.turn_on
       target:
-        entity_id: scene.office_office_cozy
+        entity_id: scene.office_cozy
 
     # Bedroom
     - service: scene.turn_on
       target:
-        entity_id: scene.bedroom_bedroom_cozy
+        entity_id: scene.bedroom_cozy
     - service: light.turn_off
       target:
         entity_id: light.bedroom_overhead
@@ -35,7 +35,7 @@ sams_bedtime_routine:
     # Nursery
     - service: scene.turn_on
       target:
-        entity_id: scene.nursery_nursery_cozy
+        entity_id: scene.nursery_cozy
 
     - service: logbook.log
       data:
