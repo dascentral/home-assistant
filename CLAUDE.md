@@ -23,3 +23,17 @@ Personal Home Assistant configuration repo that includes YAML automations, scrip
 - [Webhook Patterns](docs/webhook-patterns.md) — webhook-triggered automation pattern
 - [Getting Started](docs/getting-started.md) — setup guide for new users of this repo
 - [Best Practices](docs/best-practices.md) — HA configuration, security, and maintenance patterns
+
+## Agent skills
+
+### Issue tracker
+
+GitHub Issues (via `gh` CLI). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default vocabulary: needs-triage, needs-info, ready-for-agent, ready-for-human, wontfix. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context layout: `CONTEXT.md` at root + `docs/adr/`. See `docs/agents/domain.md`.
