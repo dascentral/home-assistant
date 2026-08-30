@@ -1,5 +1,5 @@
-sams_bedtime_routine:
-  alias: "Sam's Bedtime Routine"
+sams_bedtime:
+  alias: "Sam's Bedtime"
   description: "Sets cozy/dim lighting throughout the house for Sam's bedtime."
   sequence:
     # Living Room
