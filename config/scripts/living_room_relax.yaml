@@ -1,0 +1,13 @@
+living_room_relax:
+  alias: "Living Room Relax"
+  description: "Activates Hue relax scene and turns off CASA dimmers."
+  sequence:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.hue_living_room_relax
+    - service: light.turn_off
+      target:
+        entity_id:
+          - light.comet
+          - light.cupid
+  mode: single

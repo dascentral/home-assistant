@@ -1,0 +1,11 @@
+nursery_cozy:
+  alias: "Nursery Cozy"
+  description: "Activates Hue cozy scene and turns off overhead."
+  sequence:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.hue_nursery_cozy
+    - service: light.turn_off
+      target:
+        entity_id: light.nursery_overhead
+  mode: single

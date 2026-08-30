@@ -3,14 +3,9 @@ sams_bedtime_routine:
   description: "Sets cozy/dim lighting throughout the house for Sam's bedtime."
   sequence:
     # Living Room
-    - service: scene.turn_on
+    - service: script.turn_on
       target:
-        entity_id: scene.living_room_cozy
-    - service: light.turn_off
-      target:
-        entity_id:
-          - light.cupid
-          - light.comet
+        entity_id: script.living_room_cozy
 
     # Kitchen
     - service: light.turn_on
@@ -22,20 +17,17 @@ sams_bedtime_routine:
     # Office
     - service: scene.turn_on
       target:
-        entity_id: scene.office_cozy
+        entity_id: scene.hue_office_cozy
 
     # Bedroom
-    - service: scene.turn_on
+    - service: script.turn_on
       target:
-        entity_id: scene.bedroom_cozy
-    - service: light.turn_off
-      target:
-        entity_id: light.bedroom_overhead
+        entity_id: script.bedroom_cozy
 
     # Nursery
-    - service: scene.turn_on
+    - service: script.turn_on
       target:
-        entity_id: scene.nursery_nursing
+        entity_id: script.nursery_nursing
 
     - service: logbook.log
       data:

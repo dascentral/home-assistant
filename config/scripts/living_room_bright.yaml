@@ -1,0 +1,16 @@
+living_room_bright:
+  alias: "Living Room Bright"
+  description: "Activates Hue bright scene and sets CASA dimmers."
+  sequence:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.hue_living_room_bright
+    - service: light.turn_on
+      target:
+        entity_id: light.comet
+      data:
+        brightness_pct: 10
+    - service: light.turn_off
+      target:
+        entity_id: light.cupid
+  mode: single

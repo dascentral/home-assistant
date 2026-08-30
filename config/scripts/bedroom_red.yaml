@@ -1,0 +1,11 @@
+bedroom_red:
+  alias: "Bedroom Red"
+  description: "Activates Hue red scene and turns off overhead."
+  sequence:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.hue_bedroom_red
+    - service: light.turn_off
+      target:
+        entity_id: light.bedroom_overhead
+  mode: single

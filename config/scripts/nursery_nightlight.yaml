@@ -1,0 +1,11 @@
+nursery_nightlight:
+  alias: "Nursery Nightlight"
+  description: "Activates Hue nightlight scene and turns off overhead."
+  sequence:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.hue_nursery_nightlight
+    - service: light.turn_off
+      target:
+        entity_id: light.nursery_overhead
+  mode: single

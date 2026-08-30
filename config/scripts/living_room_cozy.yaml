@@ -1,0 +1,13 @@
+living_room_cozy:
+  alias: "Living Room Cozy"
+  description: "Activates Hue cozy scene and turns off CASA dimmers."
+  sequence:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.hue_living_room_cozy
+    - service: light.turn_off
+      target:
+        entity_id:
+          - light.comet
+          - light.cupid
+  mode: single
