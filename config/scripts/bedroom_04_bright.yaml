@@ -1,6 +1,6 @@
 bedroom_bright:
-  alias: "Bedroom Bright"
-  description: "Activates Hue bright scene and turns off overhead."
+  alias: 'Bedroom 04 Bright'
+  description: 'Activates Hue bright scene and turns off overhead.'
   sequence:
     - service: scene.turn_on
       target:

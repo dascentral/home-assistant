@@ -1,6 +1,6 @@
 bedroom_nightlight:
-  alias: "Bedroom Nightlight"
-  description: "Activates Hue nightlight scene and turns off overhead."
+  alias: 'Bedroom 01 Nightlight'
+  description: 'Activates Hue nightlight scene and turns off overhead.'
   sequence:
     - service: scene.turn_on
       target:

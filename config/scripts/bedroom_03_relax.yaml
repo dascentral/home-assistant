@@ -1,6 +1,6 @@
 bedroom_relax:
-  alias: "Bedroom Relax"
-  description: "Activates Hue relax scene and turns off overhead."
+  alias: 'Bedroom 03 Relax'
+  description: 'Activates Hue relax scene and turns off overhead.'
   sequence:
     - service: scene.turn_on
       target:

@@ -1,6 +1,6 @@
 living_room_full:
-  alias: "Living Room Full"
-  description: "Activates Hue full scene and sets all CASA dimmers to 100%."
+  alias: 'Living Room 05 Full'
+  description: 'Activates Hue full scene and sets all CASA dimmers to 100%.'
   sequence:
     - service: scene.turn_on
       target:

@@ -1,6 +1,6 @@
 living_room_nightlight:
-  alias: "Living Room Nightlight"
-  description: "Activates Hue nightlight scene and turns off CASA dimmers."
+  alias: 'Living Room 01 Nightlight'
+  description: 'Activates Hue nightlight scene and turns off CASA dimmers.'
   sequence:
     - service: scene.turn_on
       target:

@@ -1,6 +1,6 @@
 bedroom_cozy:
-  alias: "Bedroom Cozy"
-  description: "Activates Hue cozy scene and turns off overhead."
+  alias: 'Bedroom 02 Cozy'
+  description: 'Activates Hue cozy scene and turns off overhead.'
   sequence:
     - service: scene.turn_on
       target:

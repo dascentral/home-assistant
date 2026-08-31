@@ -1,6 +1,6 @@
 living_room_bright:
-  alias: "Living Room Bright"
-  description: "Activates Hue bright scene and sets CASA dimmers."
+  alias: 'Living Room 04 Bright'
+  description: 'Activates Hue bright scene and sets CASA dimmers.'
   sequence:
     - service: scene.turn_on
       target:

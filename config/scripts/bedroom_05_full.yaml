@@ -1,6 +1,6 @@
 bedroom_full:
-  alias: "Bedroom Full"
-  description: "Activates Hue full scene and sets overhead to 100%."
+  alias: 'Bedroom 05 Full'
+  description: 'Activates Hue full scene and sets overhead to 100%.'
   sequence:
     - service: scene.turn_on
       target:

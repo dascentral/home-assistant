@@ -1,6 +1,6 @@
 living_room_relax:
-  alias: "Living Room Relax"
-  description: "Activates Hue relax scene and turns off CASA dimmers."
+  alias: 'Living Room 03 Relax'
+  description: 'Activates Hue relax scene and turns off CASA dimmers.'
   sequence:
     - service: scene.turn_on
       target:

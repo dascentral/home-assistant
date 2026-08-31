@@ -1,6 +1,6 @@
 nursery_cozy:
-  alias: "Nursery Cozy"
-  description: "Activates Hue cozy scene and turns off overhead."
+  alias: 'Nursery 02 Cozy'
+  description: 'Activates Hue cozy scene and turns off overhead.'
   sequence:
     - service: scene.turn_on
       target:

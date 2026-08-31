@@ -1,6 +1,6 @@
 nursery_nightlight:
-  alias: "Nursery Nightlight"
-  description: "Activates Hue nightlight scene and turns off overhead."
+  alias: 'Nursery 01 Nightlight'
+  description: 'Activates Hue nightlight scene and turns off overhead.'
   sequence:
     - service: scene.turn_on
       target:

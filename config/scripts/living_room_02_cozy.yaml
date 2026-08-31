@@ -1,6 +1,6 @@
 living_room_cozy:
-  alias: "Living Room Cozy"
-  description: "Activates Hue cozy scene and turns off CASA dimmers."
+  alias: 'Living Room 02 Cozy'
+  description: 'Activates Hue cozy scene and turns off CASA dimmers.'
   sequence:
     - service: scene.turn_on
       target:
