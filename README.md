@@ -1,10 +1,21 @@
 # Home Assistant
 
-A collection of code, scripts, and automations for managing Home Assistant smart home devices. This repository is very much a **work in progress**.
+A collection of code, scripts, and automations for managing Home Assistant smart home devices.
 
-## 📋 Overview
+## Customizations
 
-This repository contains organized resources to help me manage and automate my Home Assistant installation.
+### Devices & Services
+
+* [HACS](https://www.hacs.xyz/) &mdash; A custom integration that provides a UI to manage custom elements in Home Assistant
+
+### Apps
+
+* [Advanced SSH & Web Terminal](https://github.com/hassio-addons/app-ssh) &mdash; Access your Home Assistant instance via SSH
+* [Matter Server](https://github.com/home-assistant/addons/tree/master/matter_server) &mdash; Enables control of Matter devices
+
+### Integrations
+
+* [sillyfrog/Automate-Pulse-v2](https://github.com/sillyfrog/Automate-Pulse-v2)
 
 ## 🗂️ Repository Structure
 
