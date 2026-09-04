@@ -29,6 +29,16 @@ sams_bedtime:
       target:
         entity_id: script.nursery_nursing
 
+    # Master Bedroom Shades
+    - service: cover.close_cover
+      target:
+        entity_id:
+          - cover.master_01
+          - cover.master_02
+          - cover.master_03
+          - cover.master_04
+          - cover.master_05
+
     - service: logbook.log
       data:
         name: Routine
