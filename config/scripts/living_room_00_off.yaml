@@ -1,0 +1,18 @@
+living_room_off:
+  alias: 'Living Room 00 Off'
+  description: 'Turns off all living room lights and lamp switches.'
+  sequence:
+    - service: light.turn_off
+      target:
+        entity_id:
+          - light.couch_left
+          - light.couch_right
+          - light.dasher
+          - light.donner
+          - light.comet
+          - light.cupid
+    - service: switch.turn_off
+      target:
+        entity_id:
+          - switch.dancer
+  mode: single
