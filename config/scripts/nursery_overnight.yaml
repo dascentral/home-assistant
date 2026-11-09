@@ -1,6 +1,6 @@
-nursery_nursing:
-  alias: 'Nursery Nursing'
-  description: 'Activates Hue nursing scene and turns off overhead.'
+nursery_overnight:
+  alias: 'Nursery Overnight'
+  description: 'Activates Hue overnight scene and turns off overhead.'
   sequence:
     - service: scene.turn_on
       target:
