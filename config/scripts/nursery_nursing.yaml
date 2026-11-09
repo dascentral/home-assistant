@@ -1,10 +1,10 @@
 nursery_nursing:
-  alias: "Nursery Nursing"
-  description: "Activates Hue nursing scene and turns off overhead."
+  alias: 'Nursery Nursing'
+  description: 'Activates Hue nursing scene and turns off overhead.'
   sequence:
     - service: scene.turn_on
       target:
-        entity_id: scene.hue_nursery_nursing
+        entity_id: scene.hue_nursery_overnight
     - service: light.turn_off
       target:
         entity_id: light.nursery_overhead
