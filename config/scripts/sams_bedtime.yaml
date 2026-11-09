@@ -27,7 +27,7 @@ sams_bedtime:
     # Nursery
     - service: script.turn_on
       target:
-        entity_id: script.nursery_nursing
+        entity_id: script.nursery_bedtime
 
     # Master Bedroom Shades
     - service: cover.close_cover
