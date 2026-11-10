@@ -1,0 +1,70 @@
+- id: established_seed_watering
+  alias: Lawn Watering (Established Seed)
+  description: >-
+    Once-daily morning watering now that the fall 2026 overseeding has taken
+    hold (replaces the twice-daily Fall Seeding schedule as of 2026-11-11).
+    Side A for 15 min, then side B for 15 min. Re-sends turn_on every 9 min
+    to prevent Sonoff 10-min auto-shutoff.
+    Stops on its own after 2026-11-24.
+  triggers:
+    - id: a_on
+      trigger: time
+      at:
+        - '07:00:00'
+        - '07:09:00'
+    - id: a_off_b_on
+      trigger: time
+      at: '07:15:00'
+    - id: b_on
+      trigger: time
+      at: '07:24:00'
+    - id: b_off
+      trigger: time
+      at: '07:30:00'
+  conditions:
+    - condition: template
+      value_template: "{{ now().date() <= as_datetime('2026-11-24').date() }}"
+  actions:
+    - choose:
+        - conditions:
+            - condition: trigger
+              id: a_on
+          sequence:
+            - action: switch.turn_on
+              target:
+                entity_id:
+                  - switch.sonoff_backyard_spigot_a
+                  - switch.sonoff_side_spigot_a
+        - conditions:
+            - condition: trigger
+              id: a_off_b_on
+          sequence:
+            - action: switch.turn_off
+              target:
+                entity_id:
+                  - switch.sonoff_backyard_spigot_a
+                  - switch.sonoff_side_spigot_a
+            - action: switch.turn_on
+              target:
+                entity_id:
+                  - switch.sonoff_backyard_spigot_b
+                  - switch.sonoff_side_spigot_b
+        - conditions:
+            - condition: trigger
+              id: b_on
+          sequence:
+            - action: switch.turn_on
+              target:
+                entity_id:
+                  - switch.sonoff_backyard_spigot_b
+                  - switch.sonoff_side_spigot_b
+        - conditions:
+            - condition: trigger
+              id: b_off
+          sequence:
+            - action: switch.turn_off
+              target:
+                entity_id:
+                  - switch.sonoff_backyard_spigot_b
+                  - switch.sonoff_side_spigot_b
+  mode: single

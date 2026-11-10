@@ -5,7 +5,7 @@
     per the Nuleaf aftercare guide (2026-10-26): water 1-2 times daily, early
     morning preferred. Side A for 8 min, then side B for 8 min; each run stays
     under the Sonoff 10-min auto-shutoff, so no re-sends are needed.
-    Stops on its own after 2026-12-06; turn off sooner once new grass is ~2 in tall.
+    Retired after 2026-11-10; superseded by Lawn Watering (Established Seed).
   triggers:
     - id: a_on
       trigger: time
@@ -24,7 +24,7 @@
         - '13:16:00'
   conditions:
     - condition: template
-      value_template: "{{ now().date() <= as_datetime('2026-12-06').date() }}"
+      value_template: "{{ now().date() <= as_datetime('2026-11-10').date() }}"
   actions:
     - choose:
         - conditions:
