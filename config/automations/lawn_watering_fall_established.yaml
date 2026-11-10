@@ -1,8 +1,8 @@
-- id: established_seed_watering
-  alias: Lawn Watering (Established Seed)
+- id: lawn_watering_fall_established
+  alias: Lawn Watering (Fall, Established Seed)
   description: >-
     Once-daily morning watering now that the fall 2026 overseeding has taken
-    hold (replaces the twice-daily Fall Seeding schedule as of 2026-11-11).
+    hold (replaces the twice-daily Fall, Initial Seed schedule as of 2026-11-11).
     Side A for 15 min, then side B for 15 min. Re-sends turn_on every 9 min
     to prevent Sonoff 10-min auto-shutoff.
     Stops on its own after 2026-11-24.
